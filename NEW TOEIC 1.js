@@ -22,6 +22,6 @@ function run() {
         script.type = "text/javascript";
         script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
         document.getElementsByTagName('head')[0].appendChild(script);
-        setTimeout("run();",2000);
     }
+    setTimeout("run();",2000);
 })();
