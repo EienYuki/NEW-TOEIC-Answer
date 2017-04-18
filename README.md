@@ -1,1 +1,2 @@
-# NEW-TOEIC-Answer
+# 龍華 NEW TOEIC模擬測驗 作答
+功用可以 半自動作答 http://www.eztest.lhu.edu.tw 的 NEW TOEIC模擬測驗 的 單元練習
