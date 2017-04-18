@@ -1,3 +1,4 @@
+//第一階段 (作答畫面)
 //第一次作答 (隨便作答)
 function run() {
     var raw_table = $("table[cellspacing=5]");

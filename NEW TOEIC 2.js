@@ -1,3 +1,4 @@
+//第三階段 (作答畫面)
 //第二次作答 (滿分)
 function run() {
         var data_Q_s = window.localStorage.getItem("data_Q");

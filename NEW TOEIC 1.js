@@ -1,4 +1,5 @@
-//取得答案 (在作答完後執行 要在 mainFrame 作用  執行完後畫面不要關掉)
+//第二階段 (作答完後 訂正 點進去的 畫面)
+//取得答案 (在作答完後執行  document 要是 mainFrame  執行完後網頁不要關掉)
 function run() {
     var raw_table = $("table[cellspacing=5]");
     var data_Q = Array(raw_table.length);
