@@ -10,10 +10,11 @@ function init(){
     iframe.id = "run";
     iframe.name = "run";
     iframe.style.width = "100%";
-    iframe.style.height = "300px";
+    iframe.style.height = "100%";
     //iframe.style.display = "none";
     iframe.src = src;
-    document.body.appendChild(iframe);
+    //document.body.appendChild(iframe);
+    $("body").html(iframe);
     $('#run').load(function(){
         if(status == 0)
             run0();
