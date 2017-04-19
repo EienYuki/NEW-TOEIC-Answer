@@ -17,36 +17,27 @@ function init(){
     $("body").html(iframe);
     $('#run').load(function(){
         if(status == 0)
-            run0();
+            setTimeout(run0(),500);
         else if(status == 1)
-            run1();
+            setTimeout(run1(),500);
         else if(status == 2)
-            run2();
+            setTimeout(run2(),500);
         else if(status == 3)
-            run3();
+            setTimeout(run3(),500);
         status++;
     });
-
 }
 function run0(){
     //第一次答題
     var f = document.getElementById("run");
     var doc = f.contentDocument;
-    setTimeout(function(){
-        var script = doc.createElement('script');
-        script.type = "text/javascript";
-        script.src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js";
-        doc.getElementsByTagName('head')[0].appendChild(script);
-        setTimeout(function(){
-            var raw_table = $(doc).find("table[cellspacing=5]");
-            for(var i=0;i<raw_table.length;i++){
-                var se = $(raw_table[i]).find("input");
-                $(se[Math.floor((Math.random() * 4) + 0)]).click();
-            }
-            doc.getElementsByTagName("form")[0].target = "run";
-            $(doc).find("input[type=image]")[0].click();
-        },2000);
-    },2000);
+    var raw_table = $(doc).find("table[cellspacing=5]");
+    for(var i=0;i<raw_table.length;i++){
+        var se = $(raw_table[i]).find("input");
+        $(se[Math.floor((Math.random() * 4) + 0)]).click();
+    }
+    doc.getElementsByTagName("form")[0].target = "run";
+    $(doc).find("input[type=image]")[0].click();
 }
 function run1(){
     //按下訂正
