@@ -25,6 +25,7 @@ function init(){
             run3();
         status++;
     });
+
 }
 function run0(){
     //第一次答題
@@ -99,3 +100,5 @@ function run3(){
     doc.getElementsByTagName("form")[0].target = "run";
     $(doc).find("input[type=image]")[0].click();
 }
+alert("請選好類型、回數 程式將會自動完成作答");
+alert("中間出現的警告無須理會");
