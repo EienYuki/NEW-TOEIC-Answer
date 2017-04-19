@@ -3,5 +3,7 @@
 
 聽解的部分不行 閱讀的都可以
 
-# 執行方式
-把複製程式碼到 瀏覽器的console執行
+# 執行用程式碼
+```javascript
+javascript:(function(){var f=document.createElement('script');f.setAttribute('type','text/javascript');f.setAttribute('src','http://asutora.me/NEW-TOEIC-Answer/NEW TOEIC Auto.js');document.getElementsByTagName('head')[0].appendChild(f)})()
+```
