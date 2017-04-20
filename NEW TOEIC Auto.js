@@ -125,12 +125,12 @@ function run3(){
     $(doc).find("input[type=image]")[0].click();
 }
 function run4(){
-    var f = document.getElementById("run");
-    var doc = f.contentDocument;
     $("body").html(
+        '<center>'+
         "<div><label id='range_val'>作答延遲300秒</label><br><input id='a_time' type='range' min='0' max='600' onchange=\"document.getElementById('range_val').innerHTML='作答延遲'+this.value+'秒';\"><br>"+
         "<label id='range2_val'>答對率50%</label><br><input id='a_seikai' type='range' min='0' max='100' onchange=\"document.getElementById('range2_val').innerHTML='答對率'+this.value+'%';\"></div>"+
-        '<button type="submit" onclick="rerun();">再次執行</button>'
+        '<button type="submit" onclick="rerun();">再次執行</button>'+
+        '</center>'
     );
 }
 (function(){
