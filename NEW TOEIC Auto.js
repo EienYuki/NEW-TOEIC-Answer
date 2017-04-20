@@ -1,9 +1,18 @@
 var status=0;
 var data_Q,data_S;
 var src;
+var _delay;
+//覆蓋掉原本的function
 function set_level(instr){
-    src = "toeic_exam2.asp?ToeicSec=start&qlevel=" + instr + "&part="+document.getElementById("testtype").value; 
-    init();
+    if(document.getElementById("testtype").value == '0'){
+        alert("尚未選擇單元");
+    }
+    else{
+        src = "toeic_exam2.asp?ToeicSec=start&qlevel=" + instr + "&part="+document.getElementById("testtype").value; 
+        _delay = parseInt($("#a_time").val());
+        _delay *= 1000;
+        init();
+    }
 }
 function init(){
     var iframe = document.createElement('iframe');
@@ -17,13 +26,13 @@ function init(){
     $("body").html(iframe);
     $('#run').load(function(){
         if(status == 0)
-            setTimeout(run0(),500);
+            setTimeout(run0,500+_delay);
         else if(status == 1)
-            setTimeout(run1(),500);
+            setTimeout(run1,500);
         else if(status == 2)
-            setTimeout(run2(),500);
+            setTimeout(run2,500);
         else if(status == 3)
-            setTimeout(run3(),500);
+            setTimeout(run3,500+_delay);
         status++;
     });
 }
@@ -49,7 +58,6 @@ function run2(){
     //取得題目、答案
     var f = document.getElementById("run");
     var doc = f.contentDocument;
-    console.log(status);
     doc = doc.getElementsByName("mainFrame")[0].contentDocument;
     var raw_table = $(doc).find("table[cellspacing=5]");
     data_Q = Array(raw_table.length);
@@ -93,6 +101,10 @@ function run3(){
     $(doc).find("input[type=image]")[0].click();
 }
 (function(){
+    $($($($("#testtype").parent()[0]).parent()[0]).parent()[0]).append(
+        "<tr bgcolor='#FFFFFF'><td width='75%' align='center'><label id='range_val'>作答延遲0秒</label><br><input id='a_time' type='range' min='0' max='600' onchange=\"document.getElementById('range_val').innerHTML='作答延遲'+this.value+'秒';\"></td></tr>"
+        );
     alert("請選好類型、回數 程式將會自動完成作答");
     alert("中間出現的警告無須理會");
+    $("#range_val").html("作答延遲"+$("#a_time").val()+"秒");
 })();
