@@ -1,7 +1,6 @@
-var status=0;
+var status=0,_delay=0,_Seikai_Ritu=0;
 var data_Q,data_S;
 var src;
-var _delay;
 //覆蓋掉原本的function
 function set_level(instr){
     if(document.getElementById("testtype").value == '0'){
@@ -11,6 +10,7 @@ function set_level(instr){
         src = "toeic_exam2.asp?ToeicSec=start&qlevel=" + instr + "&part="+document.getElementById("testtype").value; 
         _delay = parseInt($("#a_time").val());
         _delay *= 1000;
+        _Seikai_Ritu = parseInt($("#a_seikai").val());
         init();
     }
 }
@@ -33,6 +33,30 @@ function init(){
             setTimeout(run2,500);
         else if(status == 3)
             setTimeout(run3,500+_delay);
+        else if(status == 4)
+            setTimeout(run4,500);
+        status++;
+    });
+}
+function rerun(){
+    _delay = parseInt($("#a_time").val());
+    _delay *= 1000;
+    _Seikai_Ritu = parseInt($("#a_seikai").val());
+    status = 3;
+    var iframe = document.createElement('iframe');
+    iframe.id = "run";
+    iframe.name = "run";
+    iframe.style.width = "100%";
+    iframe.style.height = "100%";
+    //iframe.style.display = "none";
+    iframe.src = src;
+    //document.body.appendChild(iframe);
+    $("body").html(iframe);
+    $('#run').load(function(){
+        if(status == 3)
+            setTimeout(run3,500+_delay);
+        else if(status == 4)
+            setTimeout(run4,500);
         status++;
     });
 }
@@ -63,7 +87,7 @@ function run2(){
     data_Q = Array(raw_table.length);
     data_A = Array(raw_table.length);
     for(var i=0;i<raw_table.length;i++){
-        data_Q[i] = $($(raw_table[i]).find("font")[0]).text();
+        data_Q[i] = $($(raw_table[i]).find("font")[0]).text().trim();
         data_A[i] = $($($(raw_table[i]).find("font")[1]).parent()).text().trim();
     }
     f.src = src;
@@ -73,10 +97,10 @@ function run3(){
     var f = document.getElementById("run");
     var doc = f.contentDocument;
     var raw_table = $(doc).find("table[cellspacing=5]");
-
-    for(var i=0;i<raw_table.length;i++){
+    var run_max = parseInt(raw_table.length*(_Seikai_Ritu/100));
+    for(var i=0;i<run_max;i++){
         var temp_Q = $($(raw_table[i]).find("b")).text().trim();
-        for(var p=1;p<data_Q.length;p++){
+        for(var p=0;p<data_Q.length;p++){
             if(data_Q[p].indexOf(temp_Q) == 0) {
                 //已找到題目
                 var Option_s = $($(raw_table[i]).find("td label"));
@@ -100,11 +124,24 @@ function run3(){
     doc.getElementsByTagName("form")[0].target = "run";
     $(doc).find("input[type=image]")[0].click();
 }
+function run4(){
+    var f = document.getElementById("run");
+    var doc = f.contentDocument;
+    $("body").html(
+        "<div><label id='range_val'>作答延遲300秒</label><br><input id='a_time' type='range' min='0' max='600' onchange=\"document.getElementById('range_val').innerHTML='作答延遲'+this.value+'秒';\"><br>"+
+        "<label id='range2_val'>答對率50%</label><br><input id='a_seikai' type='range' min='0' max='100' onchange=\"document.getElementById('range2_val').innerHTML='答對率'+this.value+'%';\"></div>"+
+        '<button type="submit" onclick="rerun();">再次執行</button>'
+    );
+}
 (function(){
     $($($($("#testtype").parent()[0]).parent()[0]).parent()[0]).append(
         "<tr bgcolor='#FFFFFF'><td width='75%' align='center'><label id='range_val'>作答延遲0秒</label><br><input id='a_time' type='range' min='0' max='600' onchange=\"document.getElementById('range_val').innerHTML='作答延遲'+this.value+'秒';\"></td></tr>"
-        );
+    );
+    $($($($("#testtype").parent()[0]).parent()[0]).parent()[0]).append(
+        "<tr bgcolor='#FFFFFF'><td width='75%' align='center'><label id='range2_val'>答對率100%</label><br><input id='a_seikai' type='range' min='0' max='100' onchange=\"document.getElementById('range2_val').innerHTML='答對率'+this.value+'%';\"></td></tr>"
+    );
     alert("請選好類型、回數 程式將會自動完成作答");
     alert("中間出現的警告無須理會");
     $("#range_val").html("作答延遲"+$("#a_time").val()+"秒");
+    $("#range2_val").html("答對率"+$("#a_seikai").val()+"%");
 })();
