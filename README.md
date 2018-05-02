@@ -8,5 +8,5 @@
 
 # 執行用程式碼
 ```javascript
-javascript:(function(){var f=document.createElement('script');f.setAttribute('type','text/javascript');f.setAttribute('src','http://EienYuki.github.io/NEW-TOEIC-Answer/NEW TOEIC Auto.js');document.getElementsByTagName('head')[0].appendChild(f)})()
+javascript:(function(){var f=document.createElement('script');f.setAttribute('type','text/javascript');f.setAttribute('src','http://me.asutora.com/NEW-TOEIC-Answer/NEW TOEIC Auto.js');document.getElementsByTagName('head')[0].appendChild(f)})()
 ```
